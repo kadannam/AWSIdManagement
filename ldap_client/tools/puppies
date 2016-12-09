@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# puppies
+# /software/admin/bin
+# drowston.sre@gmail.com
+# 2013-07-21
+########################
+
+
+# Declaration
+#------------
+host="$(hostname)"
+special_host=''
+special_puppet_root='/opt/puppet'
+puppet_root='/etc/puppet'
+module_path="${puppet_root}/modules"
+manifest_path="${puppet_root}/manifests"
+log="/var/log/puppet_apply.log"
+site_manifest='test_site.pp'
+site_manifest_remove='site-rm.pp'
+options='--summarize --debug'
+hr='------------------------------------------------------------------------------------------'
+
+# Functions
+#----------
+
+set_puppet_root () {
+    if [ ${host} == ${special_host} ]; then
+        puppet_root=${special_puppet_root}
+    fi
+} # set_puppet_root end
+
+
+puppet_apply () {
+    echo "puppet apply --modulepath=${module_path} ${manifest_path}/${site_manifest}"
+    (
+        echo "$(date -I) Puppet apply start $(date +%T)"
+        echo "${hr}"
+        puppet apply --modulepath=${module_path} ${manifest_path}/${site_manifest} ${options}
+        echo "puppet apply --modulepath=${module_path} ${manifest_path}/${site_manifest} ${options} exit status = $?"
+        echo "$(date -I) Puppet apply end $(date +%T)"
+        echo ""
+        echo "${hr}"
+    ) 1>>${log} 2>&1
+} # puppet_apply_end
+
+
+output () {
+   cat ${log}
+} # output end
+
+
+main () {
+    set_puppet_root
+    puppet_apply
+    output
+} # main end
+
+
+# Execution
+#----------
+
+main
+
+# puppies end

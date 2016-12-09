@@ -1,0 +1,14 @@
+{
+  "name": "ldap_client",
+  "version": "0.1.0",
+  "author": "drowston",
+  "summary": "Ubuntu LDAP client using sssd.",
+  "license": "MIT License",
+  "source": "https://github.com/drowston-sre/sre/puppet/ldap_client",
+  "project_page": "https://github.com/drowston-sre/sre/puppet/ldap_client",
+  "issues_url": "https://github.com/drowston-sre/sre/puppet/ldap_client/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+

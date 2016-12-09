@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# server_prep 
+# drowston.sre@gmail.com
+# 2016-12-08
+#-----------------------
+
+apt-get install -y puppet='3.8.5-2'
+./create_test_site_pp
+cd /etc/puppet/modules
+ln -s /opt/puppet/modules/ldap_client ldap_client
+
+
+# server_prep end
+

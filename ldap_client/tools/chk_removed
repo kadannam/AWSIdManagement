@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# chk_installed
+
+package_list='
+    sssd
+    libpam-sss
+    libnss-sss
+    sssd-tools
+' # package_list end
+
+package_cnt=0
+
+echo
+for package in ${package_list}; do
+    removed=$(dpkg -l | grep -c "${package} ")
+    if [ ${removed} -eq 0 ] ; then
+        echo "Package '${package}' was removed."
+    else
+        echo "${package} is STILL INSTALLED!"
+    fi
+done # for end
+echo "--------------------------------"
+echo
+
+# chk_installed end
+
+
+
+

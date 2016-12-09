@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# ldap_connection_test.sh
+# /software/work/adobe/ldap
+# drowston.devops@gmail.com
+# 2016-12-01
+#---------------------------
+
+#ldap_server_list='
+#    ldap-ext-da2.adobe.net 
+#    ldap-ext-lon5.adobe.net 
+#    ldap-ext-or1.adobe.net 
+#    ldap-ext-sin2.adobe.net
+#' # ldap_server_list end
+
+ldap_server_list='
+    ldap1-livefyre-qa-use1.aws.adobe.net
+    ldap2-livefyre-qa-use1.aws.adobe.net
+' # ldap_server_list end
+
+port='389'
+success_count=0
+failed_count=0
+echo
+
+for server in $ldap_server_list; do
+    success=$(nmap -Pn -p ${port} ${server}| grep -c open)
+    if [ "$success" == 1 ] ; then
+        echo "$server Success!"
+        ((success_count++))
+    else
+        echo "$server Failed!"
+        ((failed_count++))
+        
+    fi
+done # for end
+echo "------------------------------------"
+
+if [ ${failed_count} -eq 0 ]; then
+    echo "All servers passed!"
+else
+    echo "Successful connections = ${success_count}."
+    echo "Failed connections = ${failed_count}."
+fi # if end
+echo
+
+# eof
+

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+#Remove packages
+service sssd stop
+apt-get purge -y sssd libpam-sss libnss-sss sssd-tools
+
+
+
+

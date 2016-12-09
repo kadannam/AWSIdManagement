@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# create_test_site_pp
+# drowston.sre@gmail.com
+# 2016-12-08
+#-----------------------
+
+manifest_path='/etc/puppet/manifests'
+test_site_file='test_site.pp'
+content="
+node \"$(hostname)\" {
+  include ldap_client
+}
+" # content end
+
+echo ${content} > ${manifest_path}/${test_site_file}
+
+# create_test_site_pp end
+

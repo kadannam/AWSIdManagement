@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# chk_installed
+# ldap_client/manifests
+# drowston.sre@gmail.com
+# 2016-12-06
+
+package_list='
+    sssd
+    libpam-sss
+    libnss-sss
+    sssd-tools
+' # package_list end
+
+file_list='
+    /etc/ssl/certs/ca-ldap_client.crt
+' # file_list end
+
+
+chk_install () {
+    package_list='
+        sssd
+        libpam-sss
+        libnss-sss
+        sssd-tools
+    ' # package_list end
+    package_cnt=0
+
+    echo
+    echo "Check Install"
+    echo "-------------"
+    for package in ${package_list}; do
+        success=$(dpkg -l | grep -c "${package} ")
+        if [ ${success} -eq 1 ] ; then
+            echo "Package '${package}' successfully installed."
+        else
+            echo "${package} install FAILED!"
+        fi
+    done # for end
+    echo "------------------------------------------"
+    echo
+
+} # chk_install end
+
+
+chk_config () {
+    echo "Check Config"
+    echo "------------"
+    echo "------------------------------------------"
+} # chk_cofig end  
+
+
+chk_service () {
+    echo "Check Service"
+    echo "-------------"
+    echo "Both sssd and ssh should be running."
+    echo
+    echo "service sssd status"
+    service sssd status
+    echo
+    echo "service ssh status"
+    service ssh status
+    echo "------------------------------------------"
+} # chk_service end
+
+end () {
+    echo
+    echo "-- done --"
+    echo
+} # end end
+
+
+main () {
+
+    chk_install
+    chk_config
+    chk_service
+    end
+}
+
+# Execute main
+#-------------
+main
+
+
+
+# chk_installed end
+
+
+
+
+
